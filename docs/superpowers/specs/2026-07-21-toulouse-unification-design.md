@@ -26,8 +26,15 @@ three structural problems:
    survive the collapse at full height.
 3. **`toulouse.cloud/resume/` is a stale duplicate** of the résumé. It omits the
    Assistant Banquet Manager promotion (Feb 2026 – Present) entirely and still
-   shows Banquet Captain as "Oct 2024 - Present". Anyone clicking Resume from
-   the hub sees an outdated résumé.
+   shows Banquet Captain as "Oct 2024 - Present".
+
+   **Correction, verified 2026-07-21: this never shipped.** The duplicate was
+   part of an *uncommitted, unfinished* migration in the working tree, from
+   subdomain links to path links (`/resume/`, `/dashboard/`). Production
+   `toulouse.cloud/` serves the committed version and links to
+   `resume.toulouse.cloud`; `toulouse.cloud/resume/` returns 404. No visitor
+   ever saw a stale résumé. The WIP is preserved in `git stash` on
+   `toulouse-home`, not deleted.
 
 ## Decisions
 
