@@ -149,21 +149,42 @@ export default function Home() {
 
                 <div>
                   <div className="shot shot-bleed">
-                    <Slot label="Function Spaces grid" note="10-day view · synthetic data" />
+                    <Image
+                      src="/beo/02-spaces.png"
+                      alt="Function Spaces timeline: a week of events laid across rooms, with setup chips, guest counts, a seating-diagram thumbnail, and a cancelled event marked in red."
+                      width={2000}
+                      height={1250}
+                      priority
+                    />
                     <div className="shot-cap">
-                      <span>Function Spaces · ten-day view</span>
+                      <span>Function Spaces · one week across the floor</span>
                       <strong>Synthetic data</strong>
                     </div>
                   </div>
                   <div className="shot-row">
                     <div className="shot">
-                      <Slot label="Day events" note="by room" />
+                      <Image
+                        src="/beo/01-day-events.png"
+                        alt="Day view: events grouped by room, one struck through and chipped as cancelled rather than hidden."
+                        width={2000}
+                        height={1250}
+                      />
                     </div>
                     <div className="shot">
-                      <Slot label="Event detail" note="drilldown" />
+                      <Image
+                        src="/beo/03-event-detail.png"
+                        alt="Full BEO for a single event: setup, food, beverage, and audiovisual sections with dietary callouts."
+                        width={2000}
+                        height={1250}
+                      />
                     </div>
                     <div className="shot">
-                      <Slot label="Pending diagrams" note="ops queue" />
+                      <Image
+                        src="/beo/04-pending-diagrams.png"
+                        alt="Pending diagrams queue: unassociated floorplan pages being matched to events."
+                        width={2000}
+                        height={1250}
+                      />
                     </div>
                   </div>
                 </div>
