@@ -10,16 +10,45 @@ The page has no database, authentication, server actions, environment variables,
 
 ## Information architecture
 
+The front page is an **overview tier only**. It is four screens, not seven:
+
 1. Hero and quantified proof
-2. Flagship BEO Dashboard case study
-3. Supporting product work: See Also, Voice Inventory, and LAUTREC
-4. Bartender training and enablement artifact
-5. Four-step working method
-6. Background and availability
-7. Contact call to action
+2. Work carousel — four project slides (`app/work.ts`), one screen each
+3. Four-step working method, with the AI-ownership disclosure
+4. Background, availability, and contact
+
+### The two-tier split
+
+The earlier version put every case study in full on the front page, which meant
+a visitor had to read everything in order to learn what existed. Depth now
+belongs on per-project pages at `/work/<slug>` — **not yet built**. The slugs are
+already defined in `app/work.ts` (`beo`, `see-also`, `tools`, `training`), and
+the CSS for the depth tier is retained in `app/globals.css` under the
+"Project panels" heading: `.case-blocks`, `.evidence`, `.ownership`, `.shot`,
+`.shot-row`, `.phones`, `.pair`. Those classes are currently unused by the front
+page and exist so the detail pages can be assembled without re-deriving them.
+
+When the pages land, add a "Read the case →" link to each slide. Deliberately
+omitted for now rather than shipping links to 404s.
+
+### Carousel constraints
+
+A slide must fit one screen at 375×667 with **no internal scrolling**. That is
+the whole point of the overview tier — if a summary no longer fits, it belongs
+on the detail page rather than being allowed to scroll. `.slide-body` carries
+`overflow-y:auto` purely as a safety valve for extreme viewports; it should
+never actually engage. Verified at 2560×1440, 1512×900, 900×1000, 390×844, and
+375×667.
+
+The active index is whichever slide is nearest the track's centre, not whichever
+is "visible" — on a wide monitor two slides are both more than half visible at
+once, so a visibility test lights the wrong dot.
 
 ## Implemented interactions
 
+- Work carousel: swipe, drag, arrow buttons, dots, and `←`/`→`/`Home`/`End` when
+  the track has focus. Slides carry `role="group"` with `aria-roledescription`,
+  and the track degrades to a plain horizontal scroller without JavaScript.
 - Sticky primary navigation with anchor scrolling
 - Keyboard-visible focus states and a skip link
 - Expandable `details` disclosure explaining personal ownership versus AI assistance
