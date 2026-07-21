@@ -2,24 +2,6 @@ import Image from "next/image";
 
 const appStoreUrl = "https://apps.apple.com/app/id6783075252";
 
-/** Placeholder for artwork not yet captured. Swap for <Image> when it lands. */
-function Slot({
-  label,
-  note,
-  phone = false,
-}: {
-  label: string;
-  note: string;
-  phone?: boolean;
-}) {
-  return (
-    <div className={phone ? "slot slot-phone" : "slot"} role="img" aria-label={`${label} — placeholder, artwork pending`}>
-      <b>{label}</b>
-      <small>{note}</small>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <>
@@ -266,10 +248,35 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="shot-row" style={{ marginTop: 0 }}>
-                  <Slot phone label="Reading" note="Classic style" />
-                  <Slot phone label="Nearby" note="Discovery map" />
-                  <Slot phone label="Styles" note="Five themes" />
+                <div className="phones">
+                  <figure>
+                    <Image
+                      src="/seealso/reading.png"
+                      alt="See Also on iPhone: an article cover for Bioluminescence, with a full-bleed photograph above the title set in Cormorant."
+                      width={640}
+                      height={1306}
+                      priority
+                    />
+                    <figcaption>The reader</figcaption>
+                  </figure>
+                  <figure>
+                    <Image
+                      src="/seealso/nearby.png"
+                      alt="See Also on iPhone: the Nearby map, pinned with geo-tagged articles around Toulouse and preview cards along the bottom."
+                      width={640}
+                      height={1306}
+                    />
+                    <figcaption>Nearby discovery</figcaption>
+                  </figure>
+                  <figure>
+                    <Image
+                      src="/seealso/styles.png"
+                      alt="See Also on iPhone: the reading-style picker offering Classic, Almanac, Field Guide, Broadsheet, and Nocturne."
+                      width={640}
+                      height={1306}
+                    />
+                    <figcaption>Five reading styles</figcaption>
+                  </figure>
                 </div>
               </div>
             </div>

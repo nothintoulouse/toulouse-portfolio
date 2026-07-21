@@ -307,24 +307,24 @@ p{text-wrap:pretty}
 .shot-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.8rem}
 .shot-row .shot{box-shadow:none}
 
-/* placeholder slots — real assets drop straight in */
-.slot{
-  display:grid;place-content:center;gap:.5rem;text-align:center;
-  aspect-ratio:var(--ar,16/10);
-  border:1px dashed color-mix(in oklab,var(--accent) 45%,transparent);
-  border-radius:4px;padding:1.2rem;
-  background:
-    repeating-linear-gradient(135deg,
-      color-mix(in oklab,var(--accent) 7%,transparent) 0 10px,
-      transparent 10px 20px);
-  color:var(--fg-soft);
+/* See Also device frames — transparent PNGs, so no box around them.
+   The outer two drop slightly to give the trio some rhythm. */
+.phones{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(.6rem,1.6vw,1.4rem);
+  align-items:start;
 }
-.slot b{
-  display:block;font-family:var(--display);font-variation-settings:"opsz" 48;
-  font-size:.95rem;color:var(--accent);font-weight:600;
+.phones figure{margin:0;display:grid;gap:.7rem;justify-items:center}
+.phones figure:nth-child(odd){margin-top:clamp(1rem,3vw,2.6rem)}
+.phones img{
+  width:100%;height:auto;
+  filter:drop-shadow(0 22px 34px rgba(28,26,23,.28));
 }
-.slot small{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
-.slot-phone{--ar:1320/2868;max-width:230px;margin-inline:auto}
+.phones figcaption{
+  font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--fg-soft);text-align:center;
+}
+
 
 .evidence{
   display:grid;grid-template-columns:repeat(3,1fr);
@@ -469,7 +469,9 @@ footer.site-footer{
   h3{font-size:clamp(1.15rem,4.6vw,1.4rem)}
   .lede{font-size:.98rem}
   .eyebrow::after{display:none}
-  .shot-row .slot-phone{max-width:100%}
+  .phones{gap:.4rem}
+  .phones figure:nth-child(odd){margin-top:0}
+  .phones figcaption{font-size:.58rem;letter-spacing:.1em}
 
   /* the four project panels become a horizontal swipe deck */
   .deck{
@@ -482,6 +484,9 @@ footer.site-footer{
   .deck > .panel{
     min-width:100vw;width:100vw;flex:none;
     scroll-snap-align:center;min-height:auto;
+    /* flex-row children all stretch to the tallest panel; without this the
+       shorter panels centre their content and open a screen of blank space */
+    justify-content:flex-start;
   }
   .deck-hint{display:flex}
 }
