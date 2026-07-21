@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og.png",
-        width: 1792,
-        height: 922,
+        width: 1200,
+        height: 630,
         alt: "Brayden Toulouse — I turn operational problems into working systems.",
       },
     ],
@@ -31,9 +31,25 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: "#0F2E1C",
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Loaded via <link> rather than next/font so the three toulouse.cloud
+            sites share one font source. next/font resolves Google Fonts at
+            build time, which also breaks in network-restricted build sandboxes. */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Instrument+Sans:wght@400..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

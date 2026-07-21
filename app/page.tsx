@@ -2,417 +2,459 @@ import Image from "next/image";
 
 const appStoreUrl = "https://apps.apple.com/app/id6783075252";
 
+/** Placeholder for artwork not yet captured. Swap for <Image> when it lands. */
+function Slot({
+  label,
+  note,
+  phone = false,
+}: {
+  label: string;
+  note: string;
+  phone?: boolean;
+}) {
+  return (
+    <div className={phone ? "slot slot-phone" : "slot"} role="img" aria-label={`${label} — placeholder, artwork pending`}>
+      <b>{label}</b>
+      <small>{note}</small>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      <a className="skip-link" href="#main">
+      <a className="skip-link" href="#hero">
         Skip to content
       </a>
 
       <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Brayden Toulouse, home">
-          <span className="wordmark-mark">BT</span>
-          <span>Brayden Toulouse</span>
+        <a className="wordmark" href="#hero" aria-label="Brayden Toulouse, top of page">
+          <span>Brayden</span>
+          <span>Toulouse</span>
         </a>
-        <nav aria-label="Primary navigation">
-          <a href="#work">Work</a>
+        <nav aria-label="Primary">
+          <a href="#beo">Work</a>
           <a href="#method">Method</a>
           <a href="#about">About</a>
+          <a href="#contact">Contact</a>
           <a className="nav-cta" href="mailto:brayden@toulousemail.com">
             Let&apos;s talk
           </a>
         </nav>
       </header>
 
-      <main id="main">
-        <section className="hero" id="top">
-          <div className="hero-copy">
-            <p className="eyebrow">Applied AI · Operations · Project delivery</p>
-            <h1>I turn operational problems into working systems.</h1>
-            <p className="hero-lede">
-              I lead hospitality operations and build tools around workflows I know
-              firsthand—from live event execution to voice inventory and personal
-              agents. My strength is defining the problem, directing AI-assisted
-              implementation, and verifying that the result works in practice.
-            </p>
-            <div className="hero-actions" aria-label="Portfolio actions">
-              <a className="button button-primary" href="#work">
-                See the work <span aria-hidden="true">↓</span>
-              </a>
-              <a
-                className="button button-secondary"
-                href="https://resume.toulouse.cloud"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View résumé <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
+      <nav className="rail" aria-label="Panels">
+        <a href="#hero" aria-label="Panel 1, introduction">01</a>
+        <a href="#beo" aria-label="Panel 2, BEO Dashboard">02</a>
+        <a href="#see-also" aria-label="Panel 3, See Also">03</a>
+        <a href="#tools" aria-label="Panel 4, voice inventory and agent tooling">04</a>
+        <a href="#training" aria-label="Panel 5, training and enablement">05</a>
+        <a href="#method" aria-label="Panel 6, method">06</a>
+        <a href="#about" aria-label="Panel 7, about and contact">07</a>
+      </nav>
 
-          <aside className="hero-proof" aria-label="Selected evidence">
-            <p className="proof-kicker">Evidence, not adjectives</p>
-            <dl>
-              <div>
-                <dt>20–40</dt>
-                <dd>employees regularly led or coordinated</dd>
-              </div>
-              <div>
-                <dt>≈15</dt>
-                <dd>daily users of a deployed operations platform</dd>
-              </div>
-              <div>
-                <dt>500+</dt>
-                <dd>automated tests in the flagship product</dd>
-              </div>
-              <div>
-                <dt>1</dt>
-                <dd>native iOS product shipped to the App Store</dd>
-              </div>
-            </dl>
-          </aside>
-        </section>
-
-        <section className="section flagship" id="work">
-          <div className="section-intro">
+      <main className="gallery">
+        {/* ---------------------------------------------------------- 01 */}
+        <section className="panel g-paper" id="hero">
+          <div className="inner hero-grid">
             <div>
-              <p className="eyebrow">Flagship case study · deployed operations software</p>
-              <h2>The operating layer Delphi didn&apos;t provide.</h2>
-            </div>
-            <p>
-              BEO Dashboard turns a scheduled enterprise report into a fast,
-              mobile operational view for the people setting rooms, reading event
-              orders, and responding to changes in real time.
-            </p>
-          </div>
-
-          <div className="case-layout">
-            <div className="case-narrative">
-              <div className="case-block">
-                <p className="case-label">The problem</p>
-                <p>
-                  Amadeus Delphi contained the source data, but its exported event
-                  detail was too slow and fragmented for banquet leaders moving
-                  through a 30,000-square-foot operation.
-                </p>
-              </div>
-              <div className="case-block">
-                <p className="case-label">The system</p>
-                <ol className="flow" aria-label="BEO Dashboard data flow">
-                  <li>Scheduled browser export</li>
-                  <li>Deterministic validation</li>
-                  <li>Operational data layer</li>
-                  <li>Mobile team interface</li>
-                </ol>
-              </div>
-              <div className="case-block case-results">
-                <p className="case-label">What changed</p>
-                <ul>
-                  <li>Event details became available from any browser.</li>
-                  <li>Rooms, assignments, diagrams, and status moved into one view.</li>
-                  <li>Approximately 15 colleagues now use it each day.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="product-window" aria-label="Synthetic BEO Dashboard preview">
-              <div className="window-bar">
-                <span className="window-brand">
-                  <Image
-                    src="/beo-dashboard-icon.png"
-                    alt=""
-                    width={512}
-                    height={512}
-                  />{" "}
-                  BEO Dashboard
-                </span>
-                <span className="demo-label">Synthetic demonstration</span>
-              </div>
-              <div className="window-body">
-                <div className="demo-date">
-                  <span>Tuesday</span>
-                  <strong>July 21</strong>
-                  <small>5 events · 3 spaces</small>
-                </div>
-                <div className="demo-events">
-                  <article className="demo-event demo-event-green">
-                    <div>
-                      <span className="demo-time">7:30–9:00 AM</span>
-                      <h3>Leadership Breakfast Buffet</h3>
-                      <p>Bluebonnet Ballroom 1 &amp; 2 · Rounds of 8</p>
-                    </div>
-                    <span className="demo-count">160 G</span>
-                  </article>
-                  <article className="demo-event demo-event-blue">
-                    <div>
-                      <span className="demo-time">9:15 AM–12:30 PM</span>
-                      <h3>Leadership Breakouts</h3>
-                      <p>Mockingbird B, C &amp; D · Classroom</p>
-                    </div>
-                    <span className="demo-chip">Diagram</span>
-                  </article>
-                  <article className="demo-event demo-event-gold">
-                    <div>
-                      <span className="demo-time">6:00–10:00 PM</span>
-                      <h3>Awards Dinner &amp; Program</h3>
-                      <p>Bluebonnet Ballroom 3–7 · Rounds of 10</p>
-                    </div>
-                    <span className="demo-chip">Dietary</span>
-                  </article>
-                </div>
-                <div className="demo-footer">
-                  <span>All displayed event and client information is fictional.</span>
-                  <span>Last import 8:32 AM</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="case-evidence" aria-label="BEO Dashboard evidence">
-            <div>
-              <span>Stack</span>
-              <strong>Next.js · TypeScript · Postgres · Playwright</strong>
-            </div>
-            <div>
-              <span>Reliability</span>
-              <strong>Role controls · logs · 500+ automated tests</strong>
-            </div>
-            <div>
-              <span>Deployment</span>
-              <strong>Production use · scheduled ingestion · Vercel</strong>
-            </div>
-          </div>
-
-          <details className="ownership">
-            <summary>What I personally owned—and where AI assisted</summary>
-            <div className="ownership-grid">
-              <div>
-                <h3>I owned</h3>
-                <p>
-                  Workflow discovery, requirements, system behavior, data rules,
-                  acceptance criteria, task decomposition, review, deployment
-                  decisions, and iteration with real users.
-                </p>
-              </div>
-              <div>
-                <h3>AI assisted</h3>
-                <p>
-                  Implementation, test generation, debugging, documentation, and
-                  code review under a supervisor-and-subagent workflow.
-                </p>
-              </div>
-              <div>
-                <h3>I verified</h3>
-                <p>
-                  Deterministic parsing, role behavior, failure handling, UI
-                  workflows, and regression coverage against operational needs.
-                </p>
-              </div>
-            </div>
-          </details>
-        </section>
-
-        <section className="section more-work" aria-labelledby="more-work-heading">
-          <div className="section-heading-row">
-            <div>
-              <p className="eyebrow">Selected product and enablement work</p>
-              <h2 id="more-work-heading">Range, with a consistent method.</h2>
-            </div>
-            <p>
-              Different interfaces, same discipline: start with the workflow,
-              keep deterministic work deterministic, and make uncertainty visible.
-            </p>
-          </div>
-
-          <article className="project project-see-also">
-            <div className="project-copy">
-              <p className="project-number">01 · Native product</p>
-              <Image
-                className="see-also-wordmark"
-                src="/see-also-wordmark.png"
-                alt="See Also"
-                width={1200}
-                height={383}
-              />
-              <h3>A calmer way to follow a Wikipedia rabbit hole.</h3>
-              <p>
-                A paid native iOS reader with nearby discovery, offline bookmarks,
-                accessibility support, and five reading styles. I managed product
-                definition, iterative review, App Store submission, and release
-                operations through an AI-assisted SwiftUI workflow.
+              <p className="eyebrow">Applied AI · Operations · Project delivery</p>
+              <h1>I turn operational problems into working systems.</h1>
+              <p className="lede hero-lede">
+                I lead hospitality operations and build tools around workflows I know
+                firsthand—from live event execution to voice inventory and personal
+                agents. My strength is defining the problem, directing AI-assisted
+                implementation, and verifying that the result works in practice.
               </p>
-              <ul className="inline-list" aria-label="See Also technologies">
-                <li>SwiftUI</li>
-                <li>SwiftData</li>
-                <li>MapKit</li>
-                <li>CoreLocation</li>
-              </ul>
-              <a className="text-link" href={appStoreUrl} target="_blank" rel="noreferrer">
-                View on the App Store <span aria-hidden="true">↗</span>
-              </a>
+              <div className="hero-actions">
+                <a className="button button-primary" href="#beo">
+                  See the work <span aria-hidden="true">↓</span>
+                </a>
+                <a
+                  className="button button-secondary"
+                  href="https://resume.toulouse.cloud"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View résumé <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
-            <div className="reader-preview" aria-label="Abstract See Also reading interface preview">
-              <div className="reader-phone">
-                <div className="reader-status">9:41</div>
-                <div className="reader-cover">
-                  <span>Nearby discovery</span>
-                  <strong>The stories around you.</strong>
+
+            <aside className="proof" aria-label="Selected evidence">
+              <p className="proof-kicker">Evidence, not adjectives</p>
+              <dl>
+                <div>
+                  <dt>20–40</dt>
+                  <dd>employees regularly led or coordinated</dd>
                 </div>
-                <div className="reader-article">
-                  <small>FEATURED ARTICLE</small>
-                  <h4>Brazos Valley</h4>
-                  <p>
-                    Follow the people, places, and ideas that connect one article
-                    to the next.
-                  </p>
-                  <span className="reader-action">Begin reading →</span>
+                <div>
+                  <dt>≈15</dt>
+                  <dd>daily users of a deployed operations platform</dd>
                 </div>
-              </div>
-            </div>
-          </article>
-
-          <div className="project-pair">
-            <article className="project project-voice">
-              <p className="project-number">02 · Applied AI prototype</p>
-              <div className="voice-visual" aria-hidden="true">
-                {[18, 36, 62, 28, 76, 48, 88, 40, 68, 32, 54, 22].map((height, index) => (
-                  <i key={index} style={{ height: `${height}%` }} />
-                ))}
-              </div>
-              <h3>Voice Inventory Assistant</h3>
-              <p>
-                Converts spoken bar counts into an existing inventory workbook
-                using speech recognition, deterministic count grammar, fuzzy
-                matching, confidence scoring, and a human review queue.
-              </p>
-              <div className="project-metrics">
-                <span><strong>87.5%</strong> first synthetic auto-fill</span>
-                <span><strong>88</strong> automated tests</span>
-              </div>
-            </article>
-
-            <article className="project project-agent">
-              <p className="project-number">03 · Agent systems</p>
-              <div className="agent-flow" aria-label="LAUTREC flow">
-                <span>iMessage</span><b>→</b><span>Queue</span><b>→</b><span>Agent</span><b>→</b><span>Tools</span>
-              </div>
-              <h3>LAUTREC &amp; Multi-Model CLI</h3>
-              <p>
-                A queue-aware personal-agent harness that reconstructs long-running
-                context, suppresses superseded drafts, and routes authorized requests
-                into calendar, email, task, media, and development workflows.
-              </p>
-              <ul className="inline-list" aria-label="Agent system technologies">
-                <li>Claude Code</li>
-                <li>Codex</li>
-                <li>Gemini</li>
-                <li>BlueBubbles</li>
-              </ul>
-            </article>
-          </div>
-
-          <article className="training-project">
-            <div className="training-image-wrap">
-              <Image
-                src="/training-pour-standards.png"
-                alt="Training slide explaining a 1.25 ounce banquet pour standard"
-                width={1600}
-                height={900}
-              />
-            </div>
-            <div>
-              <p className="project-number">04 · Training &amp; enablement</p>
-              <h3>Operational knowledge, made teachable.</h3>
-              <p>
-                I designed a 31-slide bartender learning program combining explicit
-                objectives, instruction, demonstration, case studies, an assessment,
-                and job aids. It turns unwritten expectations into a repeatable training
-                experience focused on consistency, safety, and professional service.
-              </p>
-              <dl className="training-facts">
-                <div><dt>31</dt><dd>slides</dd></div>
-                <div><dt>7</dt><dd>learning sections</dd></div>
-                <div><dt>3</dt><dd>delivery modes: lecture, lab, practicum</dd></div>
+                <div>
+                  <dt>500+</dt>
+                  <dd>automated tests in the flagship product</dd>
+                </div>
+                <div>
+                  <dt>1</dt>
+                  <dd>native iOS product shipped to the App Store</dd>
+                </div>
               </dl>
-            </div>
-          </article>
+            </aside>
+          </div>
         </section>
 
-        <section className="section method" id="method">
-          <div className="section-heading-row">
-            <div>
-              <p className="eyebrow">How I work</p>
-              <h2>AI-assisted does not mean unowned.</h2>
+        <p className="deck-hint" aria-hidden="true">
+          <b>Swipe</b> through four projects <b>→</b>
+        </p>
+
+        <div className="deck">
+          {/* -------------------------------------------------------- 02 */}
+          <section className="panel g-forest" id="beo" aria-labelledby="beo-h">
+            <div className="inner">
+              <div className="project-grid">
+                <div>
+                  <p className="eyebrow">01 — Flagship · deployed operations software</p>
+                  <h2 id="beo-h">The operating layer Delphi didn&apos;t provide.</h2>
+
+                  <div className="case-blocks">
+                    <div>
+                      <p className="case-label">The problem</p>
+                      <p>
+                        Amadeus Delphi contained the source data, but its exported event
+                        detail was too slow and fragmented for banquet leaders moving
+                        through a 30,000-square-foot operation.
+                      </p>
+                    </div>
+                    <div>
+                      <p className="case-label">The system</p>
+                      <ol className="flow" aria-label="BEO Dashboard data flow">
+                        <li>Scheduled export</li>
+                        <li>Deterministic validation</li>
+                        <li>Operational data layer</li>
+                        <li>Mobile team interface</li>
+                      </ol>
+                    </div>
+                    <div className="case-results">
+                      <p className="case-label">What changed</p>
+                      <ul>
+                        <li>Event details became available from any browser.</li>
+                        <li>Rooms, assignments, diagrams, and status moved into one view.</li>
+                        <li>Approximately 15 colleagues now use it each day.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="shot shot-bleed">
+                    <Slot label="Function Spaces grid" note="10-day view · synthetic data" />
+                    <div className="shot-cap">
+                      <span>Function Spaces · ten-day view</span>
+                      <strong>Synthetic data</strong>
+                    </div>
+                  </div>
+                  <div className="shot-row">
+                    <div className="shot">
+                      <Slot label="Day events" note="by room" />
+                    </div>
+                    <div className="shot">
+                      <Slot label="Event detail" note="drilldown" />
+                    </div>
+                    <div className="shot">
+                      <Slot label="Pending diagrams" note="ops queue" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="evidence" aria-label="BEO Dashboard evidence">
+                <div>
+                  <span>Stack</span>
+                  <strong>Next.js · TypeScript · Postgres · Playwright</strong>
+                </div>
+                <div>
+                  <span>Reliability</span>
+                  <strong>Role controls · logs · 500+ automated tests</strong>
+                </div>
+                <div>
+                  <span>Deployment</span>
+                  <strong>Production use · scheduled ingestion · Vercel</strong>
+                </div>
+              </div>
+
+              <details className="ownership">
+                <summary>What I personally owned—and where AI assisted</summary>
+                <div className="ownership-grid">
+                  <div>
+                    <h4>I owned</h4>
+                    <p>
+                      Workflow discovery, requirements, system behavior, data rules,
+                      acceptance criteria, task decomposition, review, deployment
+                      decisions, and iteration with real users.
+                    </p>
+                  </div>
+                  <div>
+                    <h4>AI assisted</h4>
+                    <p>
+                      Implementation, test generation, debugging, documentation, and
+                      code review under a supervisor-and-subagent workflow.
+                    </p>
+                  </div>
+                  <div>
+                    <h4>I verified</h4>
+                    <p>
+                      Deterministic parsing, role behavior, failure handling, UI
+                      workflows, and regression coverage against operational needs.
+                    </p>
+                  </div>
+                </div>
+              </details>
             </div>
-            <p>
+          </section>
+
+          {/* -------------------------------------------------------- 03 */}
+          <section className="panel g-terracotta" id="see-also" aria-labelledby="sa-h">
+            <div className="inner">
+              <div className="project-grid flip">
+                <div>
+                  <p className="eyebrow">02 — Native product · shipped</p>
+                  <Image
+                    src="/see-also-wordmark.png"
+                    alt="See Also"
+                    width={1200}
+                    height={383}
+                    style={{ width: "min(280px,60%)", height: "auto", marginBottom: "1.2rem" }}
+                  />
+                  <h2 id="sa-h">A calmer way to follow a Wikipedia rabbit hole.</h2>
+                  <p className="lede" style={{ marginTop: "1.2rem" }}>
+                    A paid native iOS reader with nearby discovery, offline bookmarks,
+                    accessibility support, and five reading styles. I managed product
+                    definition, iterative review, App Store submission, and release
+                    operations through an AI-assisted SwiftUI workflow.
+                  </p>
+                  <ul className="inline-list" aria-label="See Also technologies">
+                    <li>SwiftUI</li>
+                    <li>SwiftData</li>
+                    <li>MapKit</li>
+                    <li>CoreLocation</li>
+                  </ul>
+                  <a className="text-link" href={appStoreUrl} target="_blank" rel="noreferrer">
+                    View on the App Store <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
+
+                <div className="shot-row" style={{ marginTop: 0 }}>
+                  <Slot phone label="Reading" note="Classic style" />
+                  <Slot phone label="Nearby" note="Discovery map" />
+                  <Slot phone label="Styles" note="Five themes" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* -------------------------------------------------------- 04 */}
+          <section className="panel g-leather" id="tools" aria-labelledby="tools-h">
+            <div className="inner">
+              <p className="eyebrow">03 — Applied AI prototypes</p>
+              <h2 id="tools-h">Range, with a consistent method.</h2>
+              <p className="lede" style={{ marginTop: "1.1rem" }}>
+                Different interfaces, same discipline: start with the workflow, keep
+                deterministic work deterministic, and make uncertainty visible.
+              </p>
+
+              <div className="pair">
+                <article>
+                  <p className="project-number">Voice Inventory Assistant</p>
+                  <div className="voice-visual" aria-hidden="true">
+                    {[18, 36, 62, 28, 76, 48, 88, 40, 68, 32, 54, 22].map((height, index) => (
+                      <i key={index} style={{ height: `${height}%` }} />
+                    ))}
+                  </div>
+                  <h3>Spoken bar counts into a real workbook.</h3>
+                  <p style={{ color: "var(--fg-soft)", marginTop: ".7rem", fontSize: ".95rem" }}>
+                    Speech recognition, a deterministic count grammar, fuzzy matching,
+                    confidence scoring, and a human review queue.
+                  </p>
+                  <div className="metrics">
+                    <span>
+                      <strong>87.5%</strong> first synthetic auto-fill
+                    </span>
+                    <span>
+                      <strong>88</strong> automated tests
+                    </span>
+                  </div>
+                </article>
+
+                <article>
+                  <p className="project-number">LAUTREC &amp; Multi-Model CLI</p>
+                  <div className="agent-flow" aria-label="LAUTREC flow">
+                    <span>iMessage</span>
+                    <b>→</b>
+                    <span>Queue</span>
+                    <b>→</b>
+                    <span>Agent</span>
+                    <b>→</b>
+                    <span>Tools</span>
+                  </div>
+                  <h3>A queue-aware personal-agent harness.</h3>
+                  <p style={{ color: "var(--fg-soft)", marginTop: ".7rem", fontSize: ".95rem" }}>
+                    Reconstructs long-running context, suppresses superseded drafts, and
+                    routes authorized requests into calendar, email, task, media, and
+                    development workflows.
+                  </p>
+                  <ul className="inline-list" aria-label="Agent system technologies">
+                    <li>Claude Code</li>
+                    <li>Codex</li>
+                    <li>Gemini</li>
+                    <li>BlueBubbles</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          {/* -------------------------------------------------------- 05 */}
+          <section className="panel g-paper" id="training" aria-labelledby="tr-h">
+            <div className="inner">
+              <div className="project-grid">
+                <div>
+                  <p className="eyebrow">04 — Training &amp; enablement</p>
+                  <h2 id="tr-h">Operational knowledge, made teachable.</h2>
+                  <p className="lede" style={{ marginTop: "1.2rem" }}>
+                    I designed a 31-slide bartender learning program combining explicit
+                    objectives, instruction, demonstration, case studies, an assessment,
+                    and job aids. It turns unwritten expectations into a repeatable
+                    training experience focused on consistency, safety, and professional
+                    service.
+                  </p>
+                  <div className="evidence" style={{ marginTop: "2rem" }}>
+                    <div>
+                      <span>Slides</span>
+                      <strong>31</strong>
+                    </div>
+                    <div>
+                      <span>Sections</span>
+                      <strong>7 learning sections</strong>
+                    </div>
+                    <div>
+                      <span>Delivery</span>
+                      <strong>Lecture · lab · practicum</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="shot shot-bleed">
+                  <Image
+                    src="/training-pour-standards.png"
+                    alt="Training slide explaining a 1.25 ounce banquet pour standard"
+                    width={1600}
+                    height={900}
+                  />
+                  <div className="shot-cap">
+                    <span>Pour standards · from the 31-slide deck</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* ---------------------------------------------------------- 06 */}
+        <section className="panel g-forest" id="method" aria-labelledby="m-h">
+          <div className="inner">
+            <p className="eyebrow">How I work</p>
+            <h2 id="m-h">AI-assisted does not mean unowned.</h2>
+            <p className="lede" style={{ marginTop: "1.1rem" }}>
               The tools accelerate implementation. Responsibility for the workflow,
               decisions, verification, and consequences stays with me.
             </p>
+            <ol className="method-steps">
+              <li>
+                <span>01</span>
+                <h3>Discover</h3>
+                <p>Observe the real workflow, its users, exceptions, and cost of failure.</p>
+              </li>
+              <li>
+                <span>02</span>
+                <h3>Specify</h3>
+                <p>
+                  Define behavior, trust boundaries, acceptance criteria, and what stays
+                  deterministic.
+                </p>
+              </li>
+              <li>
+                <span>03</span>
+                <h3>Build</h3>
+                <p>Direct agents, isolate work, review changes, and iterate against actual usage.</p>
+              </li>
+              <li>
+                <span>04</span>
+                <h3>Verify</h3>
+                <p>Use tests, logs, synthetic cases, human approval, and post-action checks.</p>
+              </li>
+            </ol>
           </div>
-          <ol className="method-steps">
-            <li>
-              <span>01</span>
-              <h3>Discover</h3>
-              <p>Observe the real workflow, its users, exceptions, and cost of failure.</p>
-            </li>
-            <li>
-              <span>02</span>
-              <h3>Specify</h3>
-              <p>Define behavior, trust boundaries, acceptance criteria, and what stays deterministic.</p>
-            </li>
-            <li>
-              <span>03</span>
-              <h3>Build</h3>
-              <p>Direct agents, isolate work, review changes, and iterate against actual usage.</p>
-            </li>
-            <li>
-              <span>04</span>
-              <h3>Verify</h3>
-              <p>Use tests, logs, synthetic cases, human approval, and post-action checks.</p>
-            </li>
-          </ol>
         </section>
 
-        <section className="section about" id="about">
-          <div className="about-statement">
-            <p className="eyebrow">About</p>
-            <h2>I came to technology from the floor, not the classroom.</h2>
-          </div>
-          <div className="about-copy">
-            <p>
-              I regularly lead or coordinate 20–40 people in live hospitality
-              operations, where plans meet guests, deadlines, room turns, and
-              imperfect information. That background shapes how I build: the system
-              has to be legible, recoverable, and useful under pressure.
-            </p>
-            <p>
-              I&apos;m completing a B.S. in Hospitality Management at Texas A&amp;M
-              University and targeting applied AI, implementation, enablement, and
-              operations-technology roles in Austin or remotely. Extensive travel is
-              welcome.
-            </p>
-            <div className="about-links">
-              <a href="https://github.com/nothintoulouse" target="_blank" rel="noreferrer">GitHub ↗</a>
-              <a href="https://www.linkedin.com/in/brayden-toulouse/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-              <a href="https://resume.toulouse.cloud" target="_blank" rel="noreferrer">Résumé ↗</a>
+        {/* ---------------------------------------------------------- 07 */}
+        <section className="panel g-leather" id="about" aria-labelledby="a-h">
+          <div className="inner">
+            <div className="about-grid">
+              <div>
+                <p className="eyebrow">About</p>
+                <h2 id="a-h">I came to technology from the floor, not the classroom.</h2>
+              </div>
+              <div className="about-copy">
+                <p>
+                  I regularly lead or coordinate 20–40 people in live hospitality
+                  operations, where plans meet guests, deadlines, room turns, and
+                  imperfect information. That background shapes how I build: the system
+                  has to be legible, recoverable, and useful under pressure.
+                </p>
+                <p>
+                  I&apos;m completing a B.S. in Hospitality Management at Texas A&amp;M
+                  University, graduating December 2026, and targeting applied AI,
+                  implementation, enablement, and operations-technology roles in Austin
+                  or remotely. Extensive travel is welcome.
+                </p>
+                <div className="about-links">
+                  <a href="https://github.com/nothintoulouse" target="_blank" rel="noreferrer">
+                    GitHub ↗
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/brayden-toulouse/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    LinkedIn ↗
+                  </a>
+                  <a href="https://resume.toulouse.cloud" target="_blank" rel="noreferrer">
+                    Résumé ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="contact-block" id="contact">
+              <p className="eyebrow">Open to the right next step</p>
+              <h2>Have a messy workflow worth fixing?</h2>
+              <p className="lede" style={{ marginTop: "1rem" }}>
+                I&apos;m interested in teams that value operational judgment, responsible
+                AI adoption, and people who can translate between users and engineers.
+              </p>
+              <div className="hero-actions">
+                <a className="button button-light" href="mailto:brayden@toulousemail.com">
+                  brayden@toulousemail.com <span aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
-
-        <section className="contact" id="contact">
-          <p className="eyebrow">Open to the right next step</p>
-          <h2>Have a messy workflow worth fixing?</h2>
-          <p>
-            I&apos;m interested in teams that value operational judgment, responsible
-            AI adoption, and people who can translate between users and engineers.
-          </p>
-          <a className="button button-light" href="mailto:brayden@toulousemail.com">
-            brayden@toulousemail.com <span aria-hidden="true">↗</span>
-          </a>
-        </section>
       </main>
 
-      <footer>
+      <footer className="site-footer">
         <span>Brayden Toulouse · College Station, Texas</span>
         <span>Built to show the work, including how AI assisted it.</span>
       </footer>
