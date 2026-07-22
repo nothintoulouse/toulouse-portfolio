@@ -111,8 +111,8 @@ do not let them ride.**
 | # | Item | State |
 |---|---|---|
 | 1 | **Training slide may be shown publicly** | **RESOLVED 2026-07-21 — Brayden confirms he has permission.** The deck is his own work. |
-| 2 | **BEO screenshots contain no hotel, guest, employee, or client data** | **Unresolved.** Never signed off. The captures show real room abbreviations (`MB-*` Mockingbird, `BL` Bluebonnet, `DEAN`) because the synthetic dataset was written against the real floor plan. Scrubbing means regenerating the dataset. |
-| 3 | **See Also adoption metrics** | **Unresolved, and correctly dodged.** No download or rating figures exist. The slide claims only "5 reading styles" and "Paid · native iOS, shipped". Standing rule: do not manufacture metrics while adoption is early. |
+| 2 | **BEO screenshots contain no hotel, guest, employee, or client data** | **RESOLVED 2026-07-21 — Brayden confirms the captures are clean.** The room abbreviations (`MB-*`, `BL`, `DEAN`) stay; the accounts, contacts, and events are invented. |
+| 3 | **See Also adoption metrics** | **RESOLVED 2026-07-21 — downloads are very few, so no figure is published.** The slide claims only "5 reading styles" and "Paid · native iOS, shipped". Keep it that way: a real number here would be worse than none, and inventing one is out. Revisit only if adoption becomes worth stating. |
 | 4 | **Whether `/work/<slug>` pages are still planned** | **Open.** Five images in `public/` have no consumer without them (three BEO, two See Also). |
 | 5 | **`inventory.toulouse.cloud` and `hiltoncs.cloud` are never linked** | Standing constraint, observed. Screenshots only. `hiltoncs.cloud` is real Hilton production software. |
 | 6 | **Never use `beo-dashboard/__tests__/fixtures/report-28col-sample.csv`** | Standing constraint. It holds what appear to be real client and colleague names. |
@@ -133,9 +133,13 @@ do not let them ride.**
 `src/app/session/[id]/page.tsx` re-summed `numeric(12,3)` counts as JavaScript floats
 and rendered them raw, so a count of 0.6 + 1.2 displayed as `1.7999999999999998`.
 **The exported workbook was never affected** — the export path sums in SQL. Display
-only. A one-line rounding fix is applied in that repo **and is uncommitted, pending
-Brayden's go-ahead**; the portfolio screenshot shows the fixed display, so the fix
-must land before this is truthful.
+only.
+
+Fixed and committed in `~/Code/inventory-app` as `ed032e4`, on `main`, **not pushed** —
+so the deployed site at `inventory.toulouse.cloud` still shows the raw float. The
+portfolio screenshot shows the corrected display, so pushing that commit is what makes
+the image match what a visitor would see. Until then the gap is cosmetic and in the
+honest direction, but it should not sit indefinitely.
 
 ## Assets
 
