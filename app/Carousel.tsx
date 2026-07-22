@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "./work";
 
-const BARS = [18, 36, 62, 28, 76, 48, 88, 40, 68, 32, 54, 22];
-
 /**
  * A scroll-snap carousel that degrades to a plain horizontal scroller.
  *
@@ -131,38 +129,42 @@ export default function Carousel({ projects }: { projects: Project[] }) {
             aria-roledescription="slide"
             aria-label={`${index + 1} of ${projects.length}: ${project.title}`}
           >
-            <div className={`slide-media slide-media-${project.media.kind === "image" ? project.media.fit : "graphic"}`}>
+            <div
+              className={[
+                "slide-media",
+                `slide-media-${project.media.kind === "image" ? project.media.fit : "graphic"}`,
+                // a tall image letterboxed into a short phone band becomes a
+                // thumbnail; portrait art fills the band instead
+                project.media.kind === "image" && project.media.height > project.media.width
+                  ? "slide-media-portrait"
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+            >
               {project.media.kind === "image" ? (
-                <Image
-                  src={project.media.src}
-                  alt={project.media.alt}
-                  width={project.media.width}
-                  height={project.media.height}
-                  priority={index === 0}
-                />
+                <>
+                  <Image
+                    src={project.media.src}
+                    alt={project.media.alt}
+                    width={project.media.width}
+                    height={project.media.height}
+                    priority={index === 0}
+                  />
+                  {project.media.note ? (
+                    <p className="media-note">{project.media.note}</p>
+                  ) : null}
+                </>
               ) : (
-                <div className="graphic">
-                  <figure>
-                    <div className="voice-visual" aria-hidden="true">
-                      {BARS.map((height, i) => (
-                        <i key={i} style={{ height: `${height}%` }} />
-                      ))}
-                    </div>
-                    <figcaption>Voice Inventory Assistant</figcaption>
-                  </figure>
-                  <figure>
-                    <div className="agent-flow" aria-hidden="true">
-                      <span>iMessage</span>
-                      <b>→</b>
-                      <span>Queue</span>
-                      <b>→</b>
-                      <span>Agent</span>
-                      <b>→</b>
-                      <span>Tools</span>
-                    </div>
-                    <figcaption>LAUTREC agent harness</figcaption>
-                  </figure>
-                </div>
+                <figure className="graphic">
+                  <ol className="agent-flow" aria-label="LAUTREC request path">
+                    <li>iMessage</li>
+                    <li>Queue</li>
+                    <li>Agent</li>
+                    <li>Tools</li>
+                  </ol>
+                  <figcaption>Every request takes the same path, and every step is logged</figcaption>
+                </figure>
               )}
             </div>
 
@@ -170,19 +172,17 @@ export default function Carousel({ projects }: { projects: Project[] }) {
               <p className="eyebrow">{project.eyebrow}</p>
               <h2 className="slide-title">{project.title}</h2>
               <p className="slide-summary">{project.summary}</p>
-              <dl className="slide-metrics">
-                {project.metrics.map((metric) => (
-                  <div key={metric.label}>
-                    <dt>{metric.value}</dt>
-                    <dd>{metric.label}</dd>
-                  </div>
-                ))}
-              </dl>
-              <ul className="inline-list" aria-label={`${project.title} technologies`}>
-                {project.tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
+              {project.metrics?.length ? (
+                <dl className="slide-metrics">
+                  {project.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <dt>{metric.value}</dt>
+                      <dd>{metric.label}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+              <p className="slide-tags">{project.tags.join(" · ")}</p>
               {project.link ? (
                 <a className="text-link" href={project.link.href} target="_blank" rel="noreferrer">
                   {project.link.label} <span aria-hidden="true">↗</span>

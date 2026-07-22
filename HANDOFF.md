@@ -13,9 +13,27 @@ The page has no database, authentication, server actions, environment variables,
 The front page is an **overview tier only**. It is four screens, not seven:
 
 1. Hero and quantified proof
-2. Work carousel — four project slides (`app/work.ts`), one screen each
+2. Work carousel — five project slides (`app/work.ts`), one screen each
 3. Four-step working method, with the AI-ownership disclosure
 4. Background, availability, and contact
+
+Slides: BEO Dashboard, See Also, Voice Inventory, LAUTREC, Bartender Training.
+Voice Inventory and LAUTREC were one shared "Applied AI prototypes" panel until
+2026-07-21. That pairing buried the strongest applied-AI project — the earlier
+application plan called Voice Inventory exactly that — behind half a slide, a
+fabricated waveform, and LAUTREC's technology tags. They are now separate, and
+Voice Inventory carries a real screenshot and its own stack.
+
+### Resisting the generated look
+
+The front page is deliberately *not* uniform. Metrics are optional (`metrics?`)
+and vary two-to-three per slide; LAUTREC has none, because it has no honest
+numbers and inventing some to fill the row is precisely the instinct that makes
+a page look machine-made. Technology lists are a line of prose, not a rack of
+chips. Micro-labels are sentence case — tracked-out caps on every label turns
+each figure into an identical tile and the eye reads the pattern before the
+content. The method steps stagger rather than sitting in lockstep columns.
+Keep it that way: if every slide starts looking the same, that is the bug.
 
 ### The two-tier split
 
@@ -83,6 +101,41 @@ Recommended gallery behavior:
 - Alt text describes the operational information shown, not the visual styling
 
 Keep the synthetic-data disclosure adjacent to the gallery. Do not upload the synthetic CSV to the production dashboard; capture the screenshots from a local or isolated preview environment.
+
+## Decisions needed — standing list
+
+These have survived several sessions by never being written down in one place.
+Each is either a permission question or an unverified claim. **Resolve or delete;
+do not let them ride.**
+
+| # | Item | State |
+|---|---|---|
+| 1 | **Training slide may be shown publicly** | **RESOLVED 2026-07-21 — Brayden confirms he has permission.** The deck is his own work. |
+| 2 | **BEO screenshots contain no hotel, guest, employee, or client data** | **Unresolved.** Never signed off. The captures show real room abbreviations (`MB-*` Mockingbird, `BL` Bluebonnet, `DEAN`) because the synthetic dataset was written against the real floor plan. Scrubbing means regenerating the dataset. |
+| 3 | **See Also adoption metrics** | **Unresolved, and correctly dodged.** No download or rating figures exist. The slide claims only "5 reading styles" and "Paid · native iOS, shipped". Standing rule: do not manufacture metrics while adoption is early. |
+| 4 | **Whether `/work/<slug>` pages are still planned** | **Open.** Five images in `public/` have no consumer without them (three BEO, two See Also). |
+| 5 | **`inventory.toulouse.cloud` and `hiltoncs.cloud` are never linked** | Standing constraint, observed. Screenshots only. `hiltoncs.cloud` is real Hilton production software. |
+| 6 | **Never use `beo-dashboard/__tests__/fixtures/report-28col-sample.csv`** | Standing constraint. It holds what appear to be real client and colleague names. |
+
+### Claims verified by running the thing, not by reading a doc
+
+- **Voice Inventory tests: 87**, not 88. Confirmed by `npm test` in `~/Code/inventory-app`
+  (5 files, 87 passed). An earlier ruling said to leave "87/88" alone; that ruling was
+  made without running the suite. The site now says 87.
+- **87.5% first-pass auto-fill** — corroborated in `docs/2026-07-02-e2e-findings.md`:
+  8/8 lines itemized, 7/8 auto-filled all correct. It is a *synthetic* round trip and
+  is labelled as such. Do not restate it as a production benchmark.
+- **The deployment is real.** `inventory.toulouse.cloud` responds (307 → passcode gate);
+  the app runs locally against its Neon database.
+
+### Bug found in `inventory-app` while capturing the screenshot
+
+`src/app/session/[id]/page.tsx` re-summed `numeric(12,3)` counts as JavaScript floats
+and rendered them raw, so a count of 0.6 + 1.2 displayed as `1.7999999999999998`.
+**The exported workbook was never affected** — the export path sums in SQL. Display
+only. A one-line rounding fix is applied in that repo **and is uncommitted, pending
+Brayden's go-ahead**; the portfolio screenshot shows the fixed display, so the fix
+must land before this is truthful.
 
 ## Assets
 

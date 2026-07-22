@@ -302,15 +302,42 @@ p{text-wrap:pretty}
 }
 /* The only slide with no photograph: the two prototypes are drawn instead, each
    labelled, so the panel says what it is rather than reading as decoration. */
-.slide-media-graphic{display:grid;place-content:center;padding:clamp(1.4rem,3vw,3rem)}
-.graphic{display:grid;gap:clamp(2rem,5vh,3.4rem);width:min(440px,100%)}
-.graphic figure{margin:0;display:grid;gap:.9rem;justify-items:center}
-.graphic figcaption{
-  font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--fg-soft);text-align:center;
+/* Disclosure on a capture showing fabricated data. Sits on the image, not in
+   the body copy: it has to travel with the thing it is disclosing about. */
+.media-note{
+  position:absolute;z-index:3;right:.7rem;bottom:.7rem;
+  padding:.32rem .6rem;border-radius:2px;
+  background:color-mix(in oklab,var(--forest-deep) 82%,transparent);
+  border:1px solid color-mix(in oklab,var(--gold) 30%,transparent);
+  color:var(--gold);
+  font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
 }
-.graphic .voice-visual{margin-bottom:0;width:100%;height:clamp(70px,13vh,150px);gap:5px}
-.graphic .agent-flow{margin-bottom:0;justify-content:center;font-size:.76rem}
+
+/* The one slide with no photograph. LAUTREC's request path drawn as a vertical
+   chain — it fills a portrait cell honestly, and the shape carries the claim:
+   one path in, nothing routed around it. */
+.slide-media-graphic{display:grid;place-content:center;padding:clamp(1.4rem,3vw,3rem)}
+.graphic{margin:0;display:grid;gap:1.5rem;justify-items:center;width:min(300px,100%)}
+.graphic figcaption{
+  font-size:.8rem;color:var(--fg-soft);text-align:center;max-width:28ch;line-height:1.5;
+}
+.graphic .agent-flow{list-style:none;display:grid;gap:0;width:100%;margin:0;font-size:.88rem}
+.graphic .agent-flow li{
+  position:relative;text-align:center;padding:.65rem 1rem;
+  border:1px solid var(--rule);border-radius:2px;color:var(--fg);
+  background:color-mix(in oklab,var(--fg) 4%,transparent);
+}
+.graphic .agent-flow li + li{margin-top:1.9rem}
+.graphic .agent-flow li + li::before{
+  content:"";position:absolute;left:50%;top:-1.9rem;width:1px;height:1.9rem;
+  background:linear-gradient(var(--rule),var(--accent));
+}
+.graphic .agent-flow li + li::after{
+  content:"";position:absolute;left:50%;top:-.45rem;
+  width:5px;height:5px;margin-left:-3px;
+  border-right:1px solid var(--accent);border-bottom:1px solid var(--accent);
+  transform:rotate(45deg);
+}
 
 .slide-body{
   position:relative;z-index:2;order:1;min-width:0;min-height:0;
@@ -342,11 +369,19 @@ p{text-wrap:pretty}
   font-weight:600;line-height:1;font-variant-numeric:tabular-nums;
   font-size:clamp(1.3rem,1.9vw,1.85rem);color:var(--fg);
 }
+/* Sentence case, not tracked-out caps. Caps on every micro-label is the single
+   loudest "generated layout" tell — it turns each figure into an identical
+   tile and the eye reads the pattern before it reads the content. */
 .slide-metrics dd{
-  margin-top:.3rem;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  margin-top:.3rem;font-size:.78rem;line-height:1.3;
   color:var(--fg-soft);
 }
-.slide .inline-list{margin-top:clamp(.9rem,1.8vh,1.2rem)}
+/* Technologies as a line of prose, not a rack of chips. */
+.slide-tags{
+  margin-top:clamp(.9rem,1.8vh,1.2rem);
+  font-size:.78rem;color:var(--fg-soft);
+  opacity:.85;
+}
 .slide .text-link{margin-top:clamp(.9rem,1.8vh,1.2rem);align-self:flex-start}
 
 /* ---- controls ---- */
@@ -532,17 +567,23 @@ p{text-wrap:pretty}
 .agent-flow span{padding:.28rem .58rem;border:1px solid var(--rule);border-radius:2px}
 .agent-flow b{color:var(--accent)}
 
+/* Was a 4-up grid of oversized numerals over rules — the shape every generated
+   "our process" section takes. Now the number is a quiet marker beside the
+   step name, and the steps stagger rather than sitting in lockstep columns. */
 .method-steps{
   list-style:none;display:grid;grid-template-columns:repeat(4,1fr);
   gap:clamp(1.2rem,3vw,2.8rem);margin-top:clamp(2rem,5vh,3.5rem);
+  align-items:start;
 }
 .method-steps li{border-top:1px solid var(--rule);padding-top:1.1rem}
+.method-steps li:nth-child(even){margin-top:clamp(.8rem,2vh,1.8rem)}
 .method-steps > li > span{
-  font-family:var(--display);font-variation-settings:"opsz" 96,"WONK" 1;
-  font-size:2.1rem;color:var(--accent);display:block;margin-bottom:.5rem;
+  font-family:var(--body);font-size:.72rem;color:var(--accent);
   font-variant-numeric:tabular-nums;
+  display:inline-block;margin-right:.5rem;
 }
-.method-steps p{color:var(--fg-soft);font-size:.9rem;line-height:1.55;margin-top:.4rem}
+.method-steps h3{display:inline}
+.method-steps p{color:var(--fg-soft);font-size:.9rem;line-height:1.55;margin-top:.6rem}
 
 .about-grid{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
@@ -592,24 +633,34 @@ footer.site-footer{
   .slide-media{order:1}
   .slide-body{order:2;justify-content:flex-start;padding:clamp(1.2rem,4vw,1.7rem)}
   .slide-media-contain img{padding:clamp(.4rem,1.5vw,.9rem)}
+  /* portrait art fills the band top-anchored rather than shrinking to a stamp */
+  .slide-media-portrait img{object-fit:cover;object-position:top center;padding:0}
   .slide-title{font-size:clamp(1.35rem,5.6vw,1.9rem);max-width:none}
   .slide-summary{font-size:.92rem;line-height:1.5;max-width:none}
   /* fixed three-up: flex-wrapped metrics cost a whole extra row on a phone */
   .slide-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
   .slide-metrics dt{font-size:1.15rem}
-  .slide-metrics dd{font-size:.57rem;letter-spacing:.07em;line-height:1.3}
-  .slide .inline-list{gap:.3rem}
-  .slide .inline-list li{font-size:.62rem;padding:.24rem .5rem}
+  .slide-metrics dd{font-size:.68rem;line-height:1.25}
+  .slide-tags{font-size:.7rem}
 
-  /* the media band is ~190px on a phone; the flow chips must not wrap into a
-     second row or the last chip and its caption get clipped by the band */
+  /* The media band is only ~190px on a phone, so the chain turns on its side.
+     Same four steps, same single path, laid across instead of down. */
   .slide-media-graphic{padding:clamp(.9rem,3vw,1.4rem)}
-  .graphic{gap:1rem;width:100%}
-  .graphic figure{gap:.5rem}
-  .graphic .voice-visual{height:60px;gap:4px}
-  .graphic figcaption{font-size:.55rem;letter-spacing:.1em}
-  .graphic .agent-flow{font-size:.6rem;gap:.25rem;flex-wrap:nowrap}
-  .graphic .agent-flow span{padding:.2rem .35rem}
+  .graphic{gap:.8rem;width:100%}
+  .graphic figcaption{font-size:.66rem;max-width:34ch}
+  .graphic .agent-flow{
+    grid-auto-flow:column;grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:.9rem;font-size:.62rem;
+  }
+  .graphic .agent-flow li{padding:.4rem .2rem}
+  .graphic .agent-flow li + li{margin-top:0}
+  .graphic .agent-flow li + li::before{
+    top:50%;left:-.9rem;width:.9rem;height:1px;
+    background:linear-gradient(90deg,var(--rule),var(--accent));
+  }
+  .graphic .agent-flow li + li::after{
+    top:50%;left:-.42rem;margin-left:0;margin-top:-3px;transform:rotate(-45deg);
+  }
 }
 
 @media (max-width:760px){
@@ -634,14 +685,12 @@ footer.site-footer{
 
 /* Short phones: drop the tag row before it pushes the slide into scrolling. */
 @media (max-height:720px) and (max-width:900px){
-  .slide .inline-list{display:none}
+  .slide-tags{display:none}
   .slide{grid-template-rows:clamp(110px,19svh,180px) minmax(0,1fr)}
   .slide-summary{font-size:.88rem;line-height:1.45}
   .slide-metrics{margin-top:.85rem;padding-top:.7rem}
-  /* the band is ~125px here — two figures cannot both fit, and a clipped chip
-     is worse than one figure. The copy still names LAUTREC. */
-  .graphic figure:last-child{display:none}
-  .graphic .voice-visual{height:55px}
+  /* the band is ~125px here — the caption goes, the chain stays */
+  .graphic figcaption{display:none}
 }
 
 /* Tall desktop viewports: scale the interior up so panels fill rather than
