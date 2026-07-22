@@ -6,3 +6,9 @@ out/
 *.log
 .vercel
 .env*
+
+# Agent working files — not part of the published site
+.agent/
+.claude/
+docs/superpowers/
+HANDOFF.md
