@@ -10,7 +10,17 @@
 export type Metric = { value: string; label: string };
 
 export type Media =
-  | { kind: "image"; src: string; alt: string; width: number; height: number; fit: "cover" | "contain" }
+  | {
+      kind: "image";
+      src: string;
+      alt: string;
+      width: number;
+      height: number;
+      fit: "cover" | "contain";
+      /** Disclosure pinned to the image. Required wherever the capture shows
+       *  fabricated data that a viewer would otherwise read as real. */
+      note?: string;
+    }
   | { kind: "waveform" };
 
 export type Project = {
@@ -19,7 +29,9 @@ export type Project = {
   eyebrow: string;
   title: string;
   summary: string;
-  metrics: Metric[];
+  /** Deliberately variable in length, and omitted entirely where a project has
+   *  no honest numbers. Three tiles on every slide reads as a template. */
+  metrics?: Metric[];
   tags: string[];
   link?: { href: string; label: string };
   media: Media;
@@ -46,6 +58,7 @@ export const projects: Project[] = [
       width: 2000,
       height: 1250,
       fit: "cover",
+      note: "Synthetic data",
     },
   },
   {
@@ -56,9 +69,8 @@ export const projects: Project[] = [
     summary:
       "A paid native iOS reader with nearby discovery, offline bookmarks, accessibility support, and five reading styles. I owned product definition, iterative review, App Store submission, and release operations.",
     metrics: [
-      { value: "1", label: "App Store release" },
       { value: "5", label: "reading styles" },
-      { value: "iOS", label: "SwiftUI · SwiftData" },
+      { value: "Paid", label: "native iOS, shipped" },
     ],
     tags: ["SwiftUI", "SwiftData", "MapKit", "CoreLocation"],
     link: { href: "https://apps.apple.com/app/id6783075252", label: "View on the App Store" },
@@ -72,30 +84,52 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "tools",
+    slug: "voice-inventory",
     ground: "g-leather",
-    eyebrow: "03 — Applied AI prototypes",
-    title: "Range, with a consistent method.",
+    eyebrow: "03 — Deployed POC · passcode-gated",
+    title: "Count the bar by talking to it.",
     summary:
-      "A voice inventory assistant that turns spoken bar counts into a real workbook, and LAUTREC, a queue-aware personal-agent harness. Different interfaces, same discipline: keep deterministic work deterministic, and make uncertainty visible.",
+      "A manager counting alone has to speak, remember, and transcribe at once. This listens, matches spoken items against the property’s own sheet, and surfaces only the low-confidence lines — then patches the counts back into the original workbook.",
     metrics: [
+      // 87.5% and 87 are both verified: the auto-fill figure from the first
+      // e2e round trip, the test count by running the suite (87 passed).
       { value: "87.5%", label: "first synthetic auto-fill" },
-      { value: "88", label: "automated tests" },
-      { value: "2", label: "prototypes" },
+      { value: "87", label: "automated tests" },
+      { value: "2", label: "ASR providers, one interface" },
     ],
+    tags: ["AssemblyAI", "Deepgram", "Postgres pg_trgm", "XLSX"],
+    // No link: passcode-gated, per the standing decision not to expose it.
+    media: {
+      kind: "image",
+      src: "/inventory/sheet.png",
+      alt: "The counted sheet: nine spirits with counts filled from speech, and one line held back for review where the parser was not confident.",
+      width: 1024,
+      height: 1688,
+      fit: "contain",
+      note: "Synthetic workbook",
+    },
+  },
+  {
+    slug: "lautrec",
+    ground: "g-forest-deep",
+    eyebrow: "04 — Personal agent harness",
+    title: "Long-running agents, kept on a leash.",
+    summary:
+      "LAUTREC reconstructs conversation context across stateless invocations, suppresses superseded drafts before they send, and routes authorised requests into calendar, email, task, media, and development workflows.",
+    // No metrics: this one has no honest numbers, and inventing some to fill
+    // the row is exactly the instinct that makes a portfolio look generated.
     tags: ["Claude Code", "Codex", "Gemini", "BlueBubbles"],
     media: { kind: "waveform" },
   },
   {
     slug: "training",
     ground: "g-paper",
-    eyebrow: "04 — Training & enablement",
+    eyebrow: "05 — Training & enablement",
     title: "Operational knowledge, made teachable.",
     summary:
       "A 31-slide bartender learning program with explicit objectives, demonstration, case studies, an assessment, and job aids. It turns unwritten expectations into a repeatable training experience.",
     metrics: [
-      { value: "31", label: "slides" },
-      { value: "7", label: "learning sections" },
+      { value: "31", label: "slides, 7 sections" },
       { value: "3", label: "delivery modes" },
     ],
     tags: ["Lecture", "Lab", "Practicum"],
